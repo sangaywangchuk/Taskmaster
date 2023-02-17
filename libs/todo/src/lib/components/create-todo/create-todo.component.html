@@ -1,0 +1,32 @@
+
+<div *ngIf="todoForm">
+  <button (click)="onReturnBack()">Back</button>
+  <form [formGroup]="todoForm" class="flex-container">
+    <h3 >Create Todo</h3>
+    <div class="item">
+      title: 
+      <input type="text" name="title" formControlName="title">
+    </div>
+    <div class="item">
+      priority: 
+      <select name="cars" formControlName="priority">
+        <option *ngFor="let key of category.priority" [value]="key">{{ key | titlecase}}</option>
+      </select>
+    </div>
+    <div class="item">
+      status: 
+      <select name="cars" formControlName="completed">
+        <option *ngFor="let key of category.completed" [value]="key">{{ key | titlecase}}</option>
+      </select>
+    </div>
+    <div class="item">
+      description: 
+      <input type="text" name="description" formControlName="description">
+    </div>
+    <div>
+      <button type="text" (click)="onSubmit()">{{id? 'Update': 'Submit'}}</button>
+      <button type="reset">reset form</button>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,16 @@
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: normal;
+}
+
+.item {
+  margin-bottom: 10px;
+}
+
+.select-item {
+  width: 100%;
+}
+

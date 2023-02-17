@@ -1,0 +1,78 @@
+<div class="flex-container">
+  <h2>TODO LIST</h2>
+</div>
+<div class="flex-container">
+  <div>
+    Quick Filter
+    <select name="cars" [formControl]="filterMenu">
+      <option *ngFor="let key of todoKeys" [value]="key" [selected]="filterMenu.value === key">{{ key | titlecase}}</option>
+    </select>
+    <ng-container *ngIf="categoryArray?.length">
+      Category
+      <select name="cars" [formControl]="categoryForm">
+        <option *ngFor="let key of categoryArray" [value]="key" [selected]="categoryForm.value === key">{{ key | titlecase}}
+        </option>
+      </select>
+    </ng-container>
+  </div>
+  <div>
+    Quick Sort
+    <select name="cars" [formControl]="sortMenuControl">
+      <option *ngFor="let key of sortCategory" [value]="key" [selected]="sortMenuControl.value === key">{{ key | titlecase}}
+      </option>
+    </select>
+     <button (click)="onSortData()"> {{ (isAscending$ | async)? 'asc': 'desc'}}
+       sort</button>
+  </div>
+  <div>
+    Search
+    <input type="text" placeholder="search" [formControl]="searchTerm" name="search">
+  </div>
+  <button (click)="onCreateTodo()">create Todo</button>
+</div>
+
+<div class="flex-container">
+  <div class="flex-items" *ngrxLet="todoList$ | ngrxPush as todoList;">
+    <h3>In Progress </h3>
+    <div *ngIf="todoList?.length">
+      <div *ngFor="let todo of todoList">
+        <div *ngIf="todo.completed  === 'in progress'" >
+          <div class="flex-container4">
+            <h4>{{todo?.title}}</h4>
+            <h4> {{'Id: ' + todo?.id}}</h4>
+          </div>
+          <p>{{'priority: ' + todo?.priority}}</p>
+          <p>{{'status: '+ todo?.completed | titlecase}}</p>
+          <p> {{'created at: ' + todo?.createdAt}}</p>
+          <p>{{todo?.description}}</p>
+          <div class="flex-container">
+            <button (click)="onDelete(todo.id)">delete</button>
+            <button (click)="onEdit(todo.id)">edit</button>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="flex-items" *ngrxLet="todoList$ | ngrxPush as todoList;">
+     <h3> Completed </h3>
+    <div *ngIf="todoList?.length">
+      <div *ngFor="let todo of todoList">
+        <div *ngIf="todo.completed  === 'completed'">
+          <h4>{{todo?.title}}</h4>
+          <p>{{'priority: ' + todo?.priority}}</p>
+          <p>{{'status: '+ todo?.completed | titlecase}}</p>
+          <p> {{'created at: ' + todo?.createdAt}}</p>
+          <p>{{todo?.description}}</p>
+          <div class="flex-container">
+            <button (click)="onDelete(todo.id)">delete</button>
+            <button (click)="onEdit(todo.id)">edit</button>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
